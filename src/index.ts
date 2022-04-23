@@ -6,18 +6,14 @@ import { writeSync } from "fs";
 
 try {
   const sa = core.getInput("sa");
-  const projectId = core.getInput("project");
+  const updatePath = core.getInput("path");
+  const updateString = core.getInput("value");
 
   const tmpFile = fileSync({ postfix: ".json" });
   writeSync(tmpFile.fd, sa);
   process.env.GOOGLE_APPLICATION_CREDENTIALS = tmpFile.name;
 
-  const firebase = admin.initializeApp({
-    databaseURL: `https://${projectId}.firebaseio.com`,
-  });
-
-  const updatePath = core.getInput("path");
-  const updateString = core.getInput("value");
+  const firebase = admin.initializeApp();
 
   const updateObject = updateString.split(",").reduce((acc, entry) => {
     const [k, v] = entry.split(":");

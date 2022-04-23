@@ -5,9 +5,6 @@ inputs:
   sa:
     description: service account credentials
     required: true
-  project:
-    description: project id
-    required: true
   path:
     description: path to the doc u want to update
     required: true
