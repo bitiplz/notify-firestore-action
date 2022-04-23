@@ -2,6 +2,9 @@ name: Notify Firestore
 description: notify-firestore-action
 author: Tibor Mag
 inputs:
+  sa:
+    description: service account credentials
+    required: true
   path:
     description: path to the doc u want to update
     required: true

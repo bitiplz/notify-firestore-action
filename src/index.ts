@@ -1,7 +1,16 @@
 import * as core from "@actions/core";
 import * as admin from "firebase-admin";
 
+import { fileSync } from "tmp";
+import { writeSync } from "fs";
+
 try {
+  const sa = core.getInput("sa");
+
+  const tmpFile = fileSync({ postfix: ".json" });
+  writeSync(tmpFile.fd, sa);
+  process.env.GOOGLE_APPLICATION_CREDENTIALS = tmpFile.name;
+
   const firebase = admin.initializeApp();
 
   const updatePath = String(core.getInput("path"));
