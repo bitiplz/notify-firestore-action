@@ -4,10 +4,16 @@ import * as admin from "firebase-admin";
 try {
   const firebase = admin.initializeApp();
 
+  const updateString = core.getInput("value");
+  const updateObject = updateString.split(",").reduce((acc, entry) => {
+    const [k, v] = entry.split(":");
+    return { ...acc, [k]: v };
+  }, {});
+
   firebase
     .firestore()
     .doc(core.getInput("path"))
-    .update(JSON.parse(core.getInput("value")))
+    .update(updateObject)
     .then(
       () => {
         process.exit(core.ExitCode.Success);
