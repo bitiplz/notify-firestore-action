@@ -4,7 +4,9 @@ import * as admin from "firebase-admin";
 try {
   const firebase = admin.initializeApp();
 
+  const updatePath = core.getInput("path");
   const updateString = core.getInput("value");
+
   const updateObject = updateString.split(",").reduce((acc, entry) => {
     const [k, v] = entry.split(":");
     return { ...acc, [k]: v };
@@ -12,14 +14,14 @@ try {
 
   firebase
     .firestore()
-    .doc(core.getInput("path"))
+    .doc(updatePath)
     .update(updateObject)
     .then(
       () => {
         process.exit(core.ExitCode.Success);
       },
       (reason) => {
-        core.setFailed(JSON.stringify(reason));
+        core.setFailed(`r:${String(reason)}`);
         process.exit(core.ExitCode.Failure);
       }
     );
