@@ -1,0 +1,20 @@
+name: Notify Firestore
+description: notify-firestore-action
+author: Tibor Mag
+inputs:
+  sa:
+    description: Admin credentials json for connecting to application
+    required: true
+  url:
+    description: Database url
+    required: true
+  path:
+    description: Path to the doc u want to update
+    required: true
+  field:
+    description: Field to update
+  value:
+    description: New value of field
+runs:
+  using: node16
+  main: dist/index.js

@@ -1,0 +1,28 @@
+{
+  "name": "notify-firestore-action",
+  "version": "1.0.0",
+  "description": "notify-firestore-action",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc",
+    "pack": "ncc build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bitiplz/notify-firestore-action.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bitiplz/notify-firestore-action/issues"
+  },
+  "homepage": "https://github.com/bitiplz/notify-firestore-action#readme",
+  "dependencies": {
+    "@actions/core": "^1.6.0",
+    "firebase-admin": "^10.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^3.8.3"
+  }
+}
