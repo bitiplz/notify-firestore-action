@@ -6,15 +6,18 @@ import { writeSync } from "fs";
 
 try {
   const sa = core.getInput("sa");
+  const projectId = core.getInput("project");
 
   const tmpFile = fileSync({ postfix: ".json" });
   writeSync(tmpFile.fd, sa);
   process.env.GOOGLE_APPLICATION_CREDENTIALS = tmpFile.name;
 
-  const firebase = admin.initializeApp();
+  const firebase = admin.initializeApp({
+    databaseURL: `https://${projectId}.firebaseio.com`,
+  });
 
-  const updatePath = String(core.getInput("path"));
-  const updateString = String(core.getInput("value"));
+  const updatePath = core.getInput("path");
+  const updateString = core.getInput("value");
 
   const updateObject = updateString.split(",").reduce((acc, entry) => {
     const [k, v] = entry.split(":");
@@ -35,6 +38,6 @@ try {
       }
     );
 } catch (error) {
-  core.setFailed("2");
+  core.setFailed(JSON.stringify(error));
   process.exit(core.ExitCode.Failure);
 }
