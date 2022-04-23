@@ -4,8 +4,8 @@ import * as admin from "firebase-admin";
 try {
   const firebase = admin.initializeApp();
 
-  const updatePath = core.getInput("path");
-  const updateString = core.getInput("value");
+  const updatePath = String(core.getInput("path"));
+  const updateString = String(core.getInput("value"));
 
   const updateObject = updateString.split(",").reduce((acc, entry) => {
     const [k, v] = entry.split(":");
@@ -21,11 +21,11 @@ try {
         process.exit(core.ExitCode.Success);
       },
       (reason) => {
-        core.setFailed(`r:${String(reason)}`);
+        core.setFailed("1");
         process.exit(core.ExitCode.Failure);
       }
     );
 } catch (error) {
-  core.setFailed(JSON.stringify(error));
+  core.setFailed("2");
   process.exit(core.ExitCode.Failure);
 }
